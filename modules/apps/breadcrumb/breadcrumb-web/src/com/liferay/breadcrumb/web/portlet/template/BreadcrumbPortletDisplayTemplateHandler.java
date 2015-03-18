@@ -62,6 +62,11 @@ public class BreadcrumbPortletDisplayTemplateHandler
 	}
 
 	@Override
+	public String getDefaultTemplateKey() {
+		return BreadcrumbConfigurationValues.DDM_TEMPLATE_KEY_DEFAULT;
+	}
+
+	@Override
 	public String getName(Locale locale) {
 		ResourceBundle resourceBundle = ResourceBundle.getBundle(
 			"content.Language");

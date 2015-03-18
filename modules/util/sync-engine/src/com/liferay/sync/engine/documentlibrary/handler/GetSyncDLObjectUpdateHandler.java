@@ -28,7 +28,6 @@ import com.liferay.sync.engine.service.SyncFileService;
 import com.liferay.sync.engine.service.SyncSiteService;
 import com.liferay.sync.engine.util.FileUtil;
 import com.liferay.sync.engine.util.IODeltaUtil;
-import com.liferay.sync.engine.util.OSDetector;
 import com.liferay.sync.engine.util.SyncEngineUtil;
 
 import java.io.IOException;
@@ -45,8 +44,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import org.apache.commons.io.FileUtils;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -96,8 +93,8 @@ public class GetSyncDLObjectUpdateHandler extends BaseSyncDLObjectHandler {
 				(Long)getParameterValue("repositoryId"), getSyncAccountId());
 
 			if ((syncSite == null) ||
-				((Long)getParameterValue("lastAccessTime")
-					!= syncSite.getRemoteSyncTime())) {
+				((Long)getParameterValue("lastAccessTime") !=
+					syncSite.getRemoteSyncTime())) {
 
 				return;
 			}
@@ -114,8 +111,7 @@ public class GetSyncDLObjectUpdateHandler extends BaseSyncDLObjectHandler {
 		Path filePath = Paths.get(filePathName);
 
 		if (Files.exists(filePath) &&
-			(syncFile.isFolder() ||
-			 !FileUtil.isModified(syncFile, filePath))) {
+			(syncFile.isFolder() || !FileUtil.isModified(syncFile, filePath))) {
 
 			return;
 		}
@@ -160,13 +156,7 @@ public class GetSyncDLObjectUpdateHandler extends BaseSyncDLObjectHandler {
 		}
 
 		if (sourceSyncFile.isFile()) {
-			Files.deleteIfExists(sourceFilePath);
-
-			return;
-		}
-
-		if (!OSDetector.isLinux()) {
-			FileUtils.deleteDirectory(sourceFilePath.toFile());
+			FileUtil.deleteFile(sourceFilePath);
 
 			return;
 		}
@@ -182,7 +172,7 @@ public class GetSyncDLObjectUpdateHandler extends BaseSyncDLObjectHandler {
 						Path filePath, IOException ioe)
 					throws IOException {
 
-					Files.deleteIfExists(filePath);
+					FileUtil.deleteFile(filePath);
 
 					return FileVisitResult.CONTINUE;
 				}
@@ -203,7 +193,7 @@ public class GetSyncDLObjectUpdateHandler extends BaseSyncDLObjectHandler {
 						Path filePath, BasicFileAttributes basicFileAttributes)
 					throws IOException {
 
-					Files.deleteIfExists(filePath);
+					FileUtil.deleteFile(filePath);
 
 					return FileVisitResult.CONTINUE;
 				}
@@ -274,7 +264,7 @@ public class GetSyncDLObjectUpdateHandler extends BaseSyncDLObjectHandler {
 			targetFilePath, targetSyncFile.getParentFolderId(), sourceSyncFile);
 
 		if (Files.exists(sourceFilePath)) {
-			Files.move(sourceFilePath, targetFilePath);
+			FileUtil.moveFile(sourceFilePath, targetFilePath);
 
 			sourceSyncFile.setState(SyncFile.STATE_SYNCED);
 		}
@@ -335,7 +325,7 @@ public class GetSyncDLObjectUpdateHandler extends BaseSyncDLObjectHandler {
 			if (isIgnoredFilePath(sourceSyncFile, filePathName) ||
 				((sourceSyncFile != null) &&
 				 (sourceSyncFile.getModifiedTime() ==
-					targetSyncFile.getModifiedTime()))) {
+					 targetSyncFile.getModifiedTime()))) {
 
 				return;
 			}
