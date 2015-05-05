@@ -417,6 +417,11 @@
 	<td></td>
 </tr>
 <tr>
+	<td>SCHEDULER_VIEW_WEEK_CURRENT_DAY</td>
+	<td>//td[contains(@class,'scheduler-today')]/div</td>
+	<td></td>
+</tr>
+<tr>
 	<td></td>
 	<td></td>
 	<td></td>
@@ -435,6 +440,11 @@
 <tr>
 	<td>SCHEDULER_VIEW_MONTH_WEEK_NUMBER</td>
 	<td>//div[@class='scheduler-view-table-row-container']/div[@class='scheduler-view-table-row'][${key_weekNumber}]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>SCHEDULER_VIEW_MONTH_CURRENT_DAY</td>
+	<td>//td[contains(@class,'scheduler-view-table-colgrid-today')]</td>
 	<td></td>
 </tr>
 <tr>
