@@ -405,6 +405,17 @@
 	<td></td>
 	<td></td>
 </tr>
+<!--SCHEDULER_VIEW_DAY-->
+<tr>
+	<td>SCHEDULER_VIEW_DAY_CURRENT_DAY</td>
+	<td>//div[contains(@class,'scheduler-view scheduler-view-day') and not(contains(@class,'scheduler-view-week'))]//td[contains(@class,'scheduler-today')]/div</td>
+	<td></td>
+</tr>
+<tr>
+	<td></td>
+	<td></td>
+	<td></td>
+</tr>
 <!--SCHEDULER_VIEW_WEEK-->
 <tr>
 	<td>SCHEDULER_VIEW_WEEK</td>
